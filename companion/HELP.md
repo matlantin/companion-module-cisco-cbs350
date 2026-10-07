@@ -54,14 +54,60 @@ Without the IP address, any device can use the community.
   Protect at least the port that connects the switch to Companion.
 - **Profiles 1-8**: name and content of the profile slots (see Profiles below).
 
-### Quick start with the presets
+### Presets
+
+The presets work with a **selected port**: press a port button first, then the buttons of the **VLANs** and
+**Selected port** sections act on that port. The **Ports** and **VLANs** presets are generated from the switch, so they
+appear once the module has read it.
+
+**Quick start**
 
 1. Press a **Ports** button to select a port.
 2. Press a **VLANs** button to move the selected port to that VLAN.
 3. Press **Save config** when you want to keep the changes (it turns orange when there are unsaved changes).
 
-The port buttons are red when the link is down, green when up, grey when the port is disabled and orange when selected.
-Yellow text means the link is up below 1 Gb/s (bad cable, limited device...).
+**Ports**: one button per port, showing the port name and its VLAN (`1013` for an access port, `T 1` for a trunk with
+native VLAN 1). Pressing it selects the port.
+
+| Color       | Meaning                                              |
+| ----------- | ---------------------------------------------------- |
+| Red         | Link down                                            |
+| Green       | Link up                                              |
+| Yellow text | Link up below 1 Gb/s (100 Mb/s device, bad cable...) |
+| Grey        | Port disabled (shutdown)                             |
+| Orange      | Selected port (takes priority over the other colors) |
+
+**VLANs**: one button per VLAN of the switch, showing its id and name. Pressing it puts the selected port in access
+mode on that VLAN (also from trunk mode). The button is light blue when the selected port is on that VLAN.
+
+**Selected port**
+
+| Preset              | Shows                                         | On press                                         | Colors                                                              |
+| ------------------- | --------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------- |
+| Selected port info  | Port name and speed, VLAN name, LLDP neighbor | -                                                | Red = link down, green = up, yellow text = below 1 Gb/s             |
+| Description         | Port name and description                     | -                                                | -                                                                   |
+| LLDP neighbor       | Name of the connected device and its port     | -                                                | -                                                                   |
+| TRUNK               | -                                             | Trunk mode, all VLANs tagged, native VLAN 1      | White when the port is a trunk                                      |
+| ACCESS              | -                                             | Back to access mode on the previous access VLAN  | White when the port is in access mode                               |
+| Reset Link          | -                                             | Shut / no shut, the device renews its DHCP lease | -                                                                   |
+| Reset PoE           | -                                             | Cuts the PoE power for 5 s to restart the device | -                                                                   |
+| PoE on/off          | PoE state and power                           | Toggles PoE (off is `power inline never`)        | Dark green = PoE on, green = delivering power, grey = off or no PoE |
+| Port enable/disable | Whether the port is enabled                   | Toggles the port (disabled is `shutdown`)        | Green = enabled, grey = disabled                                    |
+
+To use another native VLAN for TRUNK, or another power off duration for Reset PoE, edit the action options of the
+button.
+
+**Profiles**: one select button per profile slot, showing the profile name, plus **STORE** and **RECALL** buttons
+acting on the selected slot (see Profiles below).
+
+| Preset         | On press                                                                  | Colors                                                   |
+| -------------- | ------------------------------------------------------------------------- | -------------------------------------------------------- |
+| Profile 1 to 8 | Selects the profile slot                                                  | Orange = selected, blue = the switch matches the profile |
+| STORE          | Stores the current layout of all non-protected ports in the selected slot | -                                                        |
+| RECALL         | Applies the selected profile                                              | Blue when the switch already matches the profile         |
+
+**Switch**: **Save config** saves the running-config to the startup-config (`write memory`). It is orange when the
+module made changes that are not saved yet.
 
 ### Actions
 
