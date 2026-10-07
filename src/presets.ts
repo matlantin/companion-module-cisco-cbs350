@@ -9,6 +9,7 @@ import type { ModuleSchema } from './main.js'
 // Companion converts preset text sizes from the legacy unit (x2.1 for buttons with the top bar),
 // so 27 / 2.1 gives a text size of 27 on the created button
 const TEXT_SIZE_27 = 12.86
+const TEXT_SIZE_26 = 12.38 // 26 / 2.1, for three lines of text
 
 const WHITE = 0xffffff
 const BLACK = 0x000000
@@ -135,7 +136,7 @@ export function UpdatePresets(self: Cbs350Instance): void {
 	presets['poe_toggle_selected_port'] = {
 		type: 'simple',
 		name: 'PoE on/off',
-		style: style(`PoE\\n${v('selected_port_poe')}\\n${v('selected_port_poe_power')}`, GREY, TEXT_SIZE_27),
+		style: style(`PoE\\n${v('selected_port_poe')}\\n${v('selected_port_poe_power')}`, GREY, TEXT_SIZE_26),
 		steps: [{ down: [{ actionId: 'set_poe_selected_port', options: { state: 'toggle' } }], up: [] }],
 		feedbacks: [
 			{ feedbackId: 'selected_port_poe', options: { state: 'enabled' }, style: { bgcolor: DARK_GREEN } },
