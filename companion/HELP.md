@@ -13,13 +13,18 @@ access**. Choose one of the two methods below.
 **Web interface**
 
 1. Log in to the switch web interface.
-2. **Security > TCP/UDP Services**: check **SNMP Service**, then click **Apply**.
-3. **SNMP > Communities**: click **Add**, then set:
+2. In the page header, switch the **Display Mode** from **Basic** to **Advanced**. In Basic mode, the **SNMP** menu is
+   hidden.
+3. **Security > TCP/UDP Services**: check **SNMP Service**, then click **Apply**.
+4. **SNMP > Communities**: click **Add**, then set:
    - **SNMP Management Station**: **User Defined** with the IP address of the Companion computer (recommended), or **All**
    - **Community String**: a name of your choice, e.g. `companion`
    - **Basic**, **Access Mode**: **Read Write** (leave **View Name** unchecked)
-4. Click **Apply**.
-5. Click the **Save** icon at the top of the page so the settings survive a reboot.
+5. Click **Apply**.
+
+   ![Add SNMP Community](images/add_snmp_community.png)
+
+6. Click the **Save** icon at the top of the page so the settings survive a reboot.
 
 **CLI** (SSH or console)
 
