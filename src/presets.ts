@@ -128,7 +128,7 @@ export function UpdatePresets(self: Cbs350Instance): void {
 	presets['poe_reset_selected_port'] = {
 		type: 'simple',
 		name: 'Reset PoE',
-		style: style('Reset\\nPoE', DARK_RED),
+		style: style('Reset\\nPoE', DARK_RED, TEXT_SIZE_27),
 		steps: [{ down: [{ actionId: 'poe_reset_selected_port', options: { off_seconds: 5 } }], up: [] }],
 		feedbacks: [],
 	}
