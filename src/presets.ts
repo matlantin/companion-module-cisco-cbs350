@@ -121,7 +121,7 @@ export function UpdatePresets(self: Cbs350Instance): void {
 	presets['bounce_selected_port'] = {
 		type: 'simple',
 		name: 'Reset Link',
-		style: style('Reset\\nLink', DARK_RED),
+		style: style('Reset\\nLink', DARK_RED, TEXT_SIZE_27),
 		steps: [{ down: [{ actionId: 'bounce_selected_port', options: {} }], up: [] }],
 		feedbacks: [],
 	}
