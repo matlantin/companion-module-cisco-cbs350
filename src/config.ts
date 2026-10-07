@@ -66,7 +66,7 @@ export function GetConfigFields(): SomeCompanionConfigField[] {
 			label: 'Profiles',
 			value:
 				'Filled by the "Store" actions with the current port layout, or by hand: ' +
-				'gi5=1013, gi6=1013, gi3=T1 (T = trunk with that native VLAN).',
+				'Port 5=1013, Port 6=1013, Port 3=T1 (T = trunk with that native VLAN).',
 			width: 12,
 		},
 		...Array.from({ length: PROFILE_SLOTS }, (_, i): SomeCompanionConfigField[] => [
@@ -88,7 +88,7 @@ export function GetConfigFields(): SomeCompanionConfigField[] {
 	]
 }
 
-// Port numbers listed in the "Protected ports" field ("9,10", "gi9 gi10"...)
+// Port numbers listed in the "Protected ports" field ("9,10", "Port 9, Port 10"...)
 export function parseProtectedPorts(config: ModuleConfig): Set<number> {
 	return new Set((config.protectedPorts ?? '').match(/\d+/g)?.map(Number) ?? [])
 }

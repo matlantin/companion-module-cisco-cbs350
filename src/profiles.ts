@@ -1,6 +1,7 @@
 // A profile is a text describing the VLAN of several ports, one entry per line or comma separated:
-//   gi5=1013, gi6=1013, 3=T1
+//   Port 5=1013, Port 6=1013, Port 3=T1
 // <port>=<vlan> puts the port in access mode, <port>=T<vlan> in trunk mode with that native VLAN.
+// The port can also be written 5 or gi5.
 import type { Port } from './switch.js'
 
 export interface ProfileEntry {
@@ -15,7 +16,7 @@ export function parseProfile(text: string): { entries: ProfileEntry[]; errors: s
 	for (const raw of text.split(/[\n,;]+/)) {
 		const item = raw.trim()
 		if (!item) continue
-		const match = /^[a-z]*(\d+)\s*[=:]\s*(t)?\s*(\d+)$/i.exec(item)
+		const match = /^[a-z]*\s*(\d+)\s*[=:]\s*(t)?\s*(\d+)$/i.exec(item)
 		if (!match) {
 			errors.push(`"${item}" is not <port>=<vlan> or <port>=T<native vlan>`)
 			continue
@@ -38,6 +39,6 @@ export function entryMatches(entry: ProfileEntry, port: Port | undefined): boole
 export function formatProfile(ports: Iterable<Port>): string {
 	return [...ports]
 		.filter((p) => p.mode !== 'other')
-		.map((p) => `${p.shortName}=${p.mode === 'trunk' ? 'T' : ''}${portVlan(p)}`)
+		.map((p) => `${p.label}=${p.mode === 'trunk' ? 'T' : ''}${portVlan(p)}`)
 		.join(', ')
 }

@@ -133,10 +133,11 @@ The VLAN changing actions also have a **Reset link after change** option.
 A profile describes the VLAN of several ports, one entry per line or comma separated:
 
 ```
-gi5=1013, gi6=1013, gi7=1012, gi3=T1
+Port 5=1013, Port 6=1013, Port 7=1012, Port 3=T1
 ```
 
-`<port>=<vlan>` puts the port in access mode on that VLAN, `<port>=T<vlan>` in trunk mode with that native VLAN.
+`<port>=<vlan>` puts the port in access mode on that VLAN, `<port>=T<vlan>` in trunk mode with that native VLAN. The
+port can also be written `5` or `gi5`.
 
 - **Profile slots**: 8 slots are stored in the module configuration. Select a slot with its preset button, then press
   **STORE** to save the current layout of all non-protected ports into it, or **RECALL** to apply it. The slot buttons

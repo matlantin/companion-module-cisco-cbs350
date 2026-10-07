@@ -9,7 +9,7 @@ export function portChoices(self: Cbs350Instance): DropdownChoice<string>[] {
 	}
 	return [...self.state.ports.values()].map((p) => ({
 		id: String(p.id),
-		label: p.description ? `${p.shortName} (${p.description})` : p.shortName,
+		label: p.description ? `${p.label} (${p.description})` : p.label,
 	}))
 }
 

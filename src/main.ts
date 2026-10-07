@@ -161,7 +161,7 @@ export default class Cbs350Instance extends InstanceBase<ModuleSchema> {
 			return undefined
 		}
 		if (this.protectedPorts.has(portId)) {
-			this.log('warn', `Port ${port.shortName} is protected (module config), not modified`)
+			this.log('warn', `${port.label} is protected (module config), not modified`)
 			return undefined
 		}
 		return port
@@ -180,11 +180,11 @@ export default class Cbs350Instance extends InstanceBase<ModuleSchema> {
 		if (!client) return false
 		try {
 			await write(client)
-			this.log('info', `Port ${port.shortName}: ${description}`)
+			this.log('info', `${port.label}: ${description}`)
 			this.unsavedChanges = true
 			return true
 		} catch (e) {
-			this.log('error', `Port ${port.shortName}: failed to set ${description}: ${e instanceof Error ? e.message : e}`)
+			this.log('error', `${port.label}: failed to set ${description}: ${e instanceof Error ? e.message : e}`)
 			return false
 		}
 	}
@@ -241,7 +241,7 @@ export default class Cbs350Instance extends InstanceBase<ModuleSchema> {
 		const port = this.#writablePort(portId)
 		if (!port) return undefined
 		if (!port.poe) {
-			this.log('warn', `Port ${port.shortName} has no PoE`)
+			this.log('warn', `${port.label} has no PoE`)
 			return undefined
 		}
 		return port as Port & { poe: NonNullable<Port['poe']> }
@@ -263,18 +263,18 @@ export default class Cbs350Instance extends InstanceBase<ModuleSchema> {
 		const client = this.#client
 		if (!port || !client) return
 		if (!port.poe.enabled) {
-			this.log('warn', `Port ${port.shortName}: PoE is off, nothing to reset`)
+			this.log('warn', `${port.label}: PoE is off, nothing to reset`)
 			return
 		}
 		try {
 			await client.setPoe(port, false)
-			this.log('info', `Port ${port.shortName}: PoE off for ${offSeconds}s`)
+			this.log('info', `${port.label}: PoE off for ${offSeconds}s`)
 			void this.poll()
 			await sleep(offSeconds * 1000)
 			await client.setPoe(port, true)
-			this.log('info', `Port ${port.shortName}: PoE back on`)
+			this.log('info', `${port.label}: PoE back on`)
 		} catch (e) {
-			this.log('error', `Port ${port.shortName}: PoE reset failed: ${e instanceof Error ? e.message : e}`)
+			this.log('error', `${port.label}: PoE reset failed: ${e instanceof Error ? e.message : e}`)
 		}
 		await this.poll()
 	}
@@ -288,9 +288,9 @@ export default class Cbs350Instance extends InstanceBase<ModuleSchema> {
 			await client.setEnabled(port, false)
 			await sleep(3000)
 			await client.setEnabled(port, true)
-			this.log('info', `Port ${port.shortName}: link reset`)
+			this.log('info', `${port.label}: link reset`)
 		} catch (e) {
-			this.log('error', `Port ${port.shortName}: link reset failed: ${e instanceof Error ? e.message : e}`)
+			this.log('error', `${port.label}: link reset failed: ${e instanceof Error ? e.message : e}`)
 		}
 		await this.poll()
 	}
@@ -413,7 +413,7 @@ export default class Cbs350Instance extends InstanceBase<ModuleSchema> {
 	// so dropdowns and presets follow the switch without resetting them on every poll
 	updateDefinitions(force = false): void {
 		const signature = JSON.stringify([
-			[...this.state.ports.values()].map((p) => [p.id, p.shortName, p.description, p.poe !== undefined]),
+			[...this.state.ports.values()].map((p) => [p.id, p.label, p.description, p.poe !== undefined]),
 			[...this.state.vlans.values()].map((v) => [v.id, v.name]),
 		])
 		if (!force && signature === this.#definitionsSignature) return

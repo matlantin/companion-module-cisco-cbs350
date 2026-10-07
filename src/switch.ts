@@ -22,7 +22,7 @@ export interface Poe {
 export interface Port {
 	id: number // ifIndex
 	name: string // GigabitEthernet6
-	shortName: string // gi6
+	label: string // Port 6
 	description: string
 	linkUp: boolean
 	enabled: boolean // not "shutdown"
@@ -93,12 +93,11 @@ export class SwitchClient {
 		const [sysDescr, sysName] = await snmpGet(session, [OIDS.sysDescr, OIDS.sysName])
 
 		const walk = async (oid: string) => snmpWalkColumn(session, oid)
-		const [types, descrs, names, aliases, operStatus, adminStatus, speeds, modes, accessVlans, nativeVlans, vlanNames] =
+		const [types, descrs, aliases, operStatus, adminStatus, speeds, modes, accessVlans, nativeVlans, vlanNames] =
 			await Promise.all(
 				[
 					OIDS.ifType,
 					OIDS.ifDescr,
-					OIDS.ifName,
 					OIDS.ifAlias,
 					OIDS.ifOperStatus,
 					OIDS.ifAdminStatus,
@@ -137,7 +136,7 @@ export class SwitchClient {
 			ports.set(id, {
 				id,
 				name: formatOctets(descrs.get(id)) || `Port ${id}`,
-				shortName: formatOctets(names.get(id)) || String(id),
+				label: `Port ${id}`,
 				description: formatOctets(aliases.get(id)),
 				linkUp: operStatus.get(id) === 1,
 				enabled: adminStatus.get(id) !== 2,

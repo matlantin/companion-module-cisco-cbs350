@@ -10,7 +10,6 @@ export const OIDS = {
 	ifType: '1.3.6.1.2.1.2.2.1.3',
 	ifAdminStatus: '1.3.6.1.2.1.2.2.1.7', // read-write, 1 = up, 2 = down ("shutdown")
 	ifOperStatus: '1.3.6.1.2.1.2.2.1.8', // 1 = up, 2 = down
-	ifName: '1.3.6.1.2.1.31.1.1.1.1', // short name, e.g. gi6
 	ifHighSpeed: '1.3.6.1.2.1.31.1.1.1.15', // Mb/s
 	ifAlias: '1.3.6.1.2.1.31.1.1.1.18', // read-write, port description
 

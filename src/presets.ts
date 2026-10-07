@@ -43,7 +43,7 @@ export function UpdatePresets(self: Cbs350Instance): void {
 		portPresets.push(id)
 		presets[id] = {
 			type: 'simple',
-			name: port.shortName,
+			name: port.label,
 			style: style(`${v(`port_${port.id}_name`)}\\n${v(`port_${port.id}_summary`)}`, RED),
 			steps: [{ down: [{ actionId: 'select_port', options }], up: [] }],
 			feedbacks: [

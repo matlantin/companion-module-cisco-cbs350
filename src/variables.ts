@@ -40,7 +40,7 @@ export function UpdateVariableDefinitions(self: Cbs350Instance): void {
 	}
 	for (const port of self.state.ports.values()) {
 		for (const [key, label] of Object.entries(PORT_VARIABLES)) {
-			variables[`port_${port.id}_${key}`] = { name: `${port.shortName} ${label}` }
+			variables[`port_${port.id}_${key}`] = { name: `${port.label} ${label}` }
 		}
 	}
 	for (const slot of self.profileSlots()) {
@@ -59,7 +59,7 @@ function portValues(self: Cbs350Instance, port: Port | undefined): Record<string
 	if (!port) return Object.fromEntries(Object.keys(PORT_VARIABLES).map((key) => [key, key === 'name' ? 'None' : '']))
 	const vlan = portVlan(port)
 	return {
-		name: port.shortName,
+		name: port.label,
 		alias: port.description,
 		status: port.linkUp ? 'Up' : 'Down',
 		enabled: port.enabled ? 'Yes' : 'No',

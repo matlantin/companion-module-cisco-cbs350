@@ -243,7 +243,7 @@ export function UpdateActions(self: Cbs350Instance): void {
 			options: [
 				{
 					type: 'textinput',
-					label: 'Profile (e.g. gi5=1013, gi6=1013, gi3=T1)',
+					label: 'Profile (e.g. Port 5=1013, Port 6=1013, Port 3=T1)',
 					id: 'profile',
 					default: '',
 					multiline: true,
